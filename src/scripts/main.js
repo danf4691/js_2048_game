@@ -17,44 +17,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const scoreElement = document.querySelector('.game-score');
 
   document.addEventListener('keydown', (e) => {
-    if (game.getStatus() !== 'idle') {
-      return;
-    }
+    if (game.getStatus() === 'idle') {
+      let moved = false;
 
-    if (
-      e.key === 'ArrowLeft' ||
-      e.key === 'ArrowRight' ||
-      e.key === 'ArrowUp' ||
-      e.key === 'ArrowDown'
-    ) {
-      if (startButton.classList.contains('start')) {
-        startButton.classList.remove('start');
-        startButton.classList.add('restart');
-        startButton.textContent = 'Restart';
+      game.start();
+
+      if (e.key === 'ArrowLeft') {
+        moved = game.moveLeft();
       }
-    }
-    game.start();
 
-    if (e.key === 'ArrowLeft') {
-      game.moveLeft();
-    }
+      if (e.key === 'ArrowRight') {
+        moved = game.moveRight();
+      }
 
-    if (e.key === 'ArrowRight') {
-      game.moveRight();
-    }
+      if (e.key === 'ArrowUp') {
+        moved = game.moveUp();
+      }
 
-    if (e.key === 'ArrowUp') {
-      game.moveUp();
+      if (e.key === 'ArrowDown') {
+        moved = game.moveDown();
+      }
+
+      if (moved) {
+        if (startButton.classList.contains('start')) {
+          startButton.classList.remove('start');
+          startButton.classList.add('restart');
+          startButton.textContent = 'Restart';
+        }
+      }
+
+      updateUI();
     }
-    game.updateUI();
-    updateScore();
   });
 
   startButton.addEventListener('click', () => {
     if (startButton.classList.contains('start')) {
-      startButton.classList.remove('start');
-      startButton.classList.add('restart');
-      startButton.textContent = 'Restart';
       game.start();
       updateUI();
       updateScore();
@@ -73,20 +70,30 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    let moved = false;
+
     if (e.key === 'ArrowLeft') {
-      game.moveLeft();
+      moved = game.moveLeft();
     }
 
     if (e.key === 'ArrowRight') {
-      game.moveRight();
+      moved = game.moveRight();
     }
 
     if (e.key === 'ArrowUp') {
-      game.moveUp();
+      moved = game.moveUp();
     }
 
     if (e.key === 'ArrowDown') {
-      game.moveDown();
+      moved = game.moveDown();
+    }
+
+    if (moved) {
+      if (startButton.classList.contains('start')) {
+        startButton.classList.remove('start');
+        startButton.classList.add('restart');
+        startButton.textContent = 'Restart';
+      }
     }
 
     updateUI();

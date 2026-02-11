@@ -40,14 +40,14 @@ class Game {
   }
 
   _render() {
-    if (!this.rows) {
+    if (!this.rows || this.rows.length === 0) {
       return;
     }
 
     for (let row = 0; row < 4; row++) {
       for (let col = 0; col < 4; col++) {
         const value = this.state[row][col];
-        const cell = this.rows[row].children[col];
+        const cell = this.rows[row]?.children[col];
 
         cell.textContent = value === 0 ? '' : value;
 
@@ -62,6 +62,10 @@ class Game {
 
   initDom() {
     this.rows = document.querySelectorAll('.field-row');
+
+    if (!this.rows.length) {
+      throw new Error('Game board not found in DOM');
+    }
   }
 
   moveLeft() {
@@ -110,6 +114,8 @@ class Game {
     if (this.gameStatus === 'playing') {
       this.checkLose();
     }
+
+    return moved;
   }
 
   moveRight() {
@@ -159,6 +165,8 @@ class Game {
     if (this.gameStatus === 'playing') {
       this.checkLose();
     }
+
+    return moved;
   }
   moveUp() {
     let moved = false;
@@ -213,6 +221,8 @@ class Game {
     if (this.gameStatus === 'playing') {
       this.checkLose();
     }
+
+    return moved;
   }
   moveDown() {
     let moved = false;
@@ -268,6 +278,8 @@ class Game {
     if (this.gameStatus === 'playing') {
       this.checkLose();
     }
+
+    return moved;
   }
 
   /**
