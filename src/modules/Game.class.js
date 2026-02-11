@@ -29,7 +29,6 @@ class Game {
     ],
   ) {
     // eslint-disable-next-line no-console
-    console.log(initialState);
     this.initialState = initialState;
     this.state = [];
 
@@ -106,6 +105,8 @@ class Game {
       this.addRandomTile();
     }
 
+    this._render();
+
     if (this.gameStatus === 'playing') {
       this.checkLose();
     }
@@ -152,6 +153,8 @@ class Game {
     if (moved) {
       this.addRandomTile();
     }
+
+    this._render();
 
     if (this.gameStatus === 'playing') {
       this.checkLose();
@@ -205,6 +208,8 @@ class Game {
       this.addRandomTile();
     }
 
+    this._render();
+
     if (this.gameStatus === 'playing') {
       this.checkLose();
     }
@@ -257,6 +262,8 @@ class Game {
     if (moved) {
       this.addRandomTile();
     }
+
+    this._render();
 
     if (this.gameStatus === 'playing') {
       this.checkLose();
@@ -364,4 +371,4 @@ class Game {
   }
 }
 
-module.exports = Game;
+export default Game;
